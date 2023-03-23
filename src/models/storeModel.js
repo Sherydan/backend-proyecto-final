@@ -4,8 +4,9 @@ const createStore = async (store) => {
     try {
         let { name, rut, industry, adress, email_adress } = store;
 
-        const values = [name, rut, industry, adress, email_adress ];
-        const consulta = "INSERT INTO store VALUES (DEFAULT, $1, $2, $3, $4, $5)";
+        const values = [name, rut, industry, adress, email_adress];
+        const consulta =
+            "INSERT INTO store VALUES (DEFAULT, $1, $2, $3, $4, $5)";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount;
 
@@ -70,4 +71,30 @@ const updateStore = async (store) => {
     }
 };
 
-module.exports = { createStore, checkIfStoreAlreadyExists, getStore, updateStore };
+const deleteStore = async (name) => {
+    try {
+        const values = [name];
+        const consulta = "DELETE FROM store WHERE name = $1";
+        const result = await pool.query(consulta, values);
+        const rowCount = result.rowCount;
+
+        if (!rowCount) {
+            throw {
+                code: 404,
+                message: "Cant delete store",
+            };
+        }
+
+        return result.rows;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+module.exports = {
+    createStore,
+    checkIfStoreAlreadyExists,
+    getStore,
+    updateStore,
+    deleteStore
+};

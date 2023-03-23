@@ -3,6 +3,7 @@ const {
     checkIfStoreAlreadyExists,
     getStore,
     updateStore,
+    deleteStore,
 } = require("../models/storeModel");
 
 const { checkStoreFields } = require("../helpers/validateNewStore");
@@ -46,5 +47,16 @@ const updateStoreData = async (req, res) => {
     }
 };
 
+const delStore = async (req, res) => {
+    try {
+        const { name } = req.body;
+        const result = await deleteStore(name);
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+    }
+};
 
-module.exports = { insertStore, storeData, updateStoreData };
+
+
+module.exports = { insertStore, storeData, updateStoreData, delStore };
