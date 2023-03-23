@@ -7,8 +7,8 @@ const registerUser = async (user) => {
         let { email, password, rol, lenguage } = user;
         const encriptedPassword = bcrypt.hashSync(password);
         password = encriptedPassword;
-        const values = [email, encriptedPassword, rol, lenguage];
-        const consulta = "INSERT INTO usuarios VALUES (DEFAULT, $1, $2, $3, $4)";
+        const values = [store_id, email, encriptedPassword, rol, first_name, last_name];
+        const consulta = "INSERT INTO users VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount
 
@@ -28,7 +28,7 @@ const registerUser = async (user) => {
 const checkIfUserAlreadyExists = async ({email}) => {
     console.log("email on model", email)
     try {
-        const consulta = "SELECT * FROM usuarios WHERE email = $1"
+        const consulta = "SELECT * FROM users WHERE email = $1"
         const values = [email]
         const result = await pool.query(consulta,values)
         
