@@ -11,5 +11,4 @@ router.put("/usuarios", reportRequest,isLogin, updateUserData)
 router.delete("/usuarios", reportRequest,isLogin, delUser)
 
 
-
 module.exports = router

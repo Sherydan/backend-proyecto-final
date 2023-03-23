@@ -4,11 +4,10 @@ const e = require("express");
 
 const registerUser = async (user) => {
     try {
-        let { email, password, rol, lenguage } = user;
+        let { email, password, rol, first_name, last_name  } = user;
         const encriptedPassword = bcrypt.hashSync(password);
         password = encriptedPassword;
         const values = [
-            store_id,
             email,
             encriptedPassword,
             rol,
@@ -16,7 +15,7 @@ const registerUser = async (user) => {
             last_name,
         ];
         const consulta =
-            "INSERT INTO users VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)";
+            "INSERT INTO users VALUES (DEFAULT, $1, $2, $3, $4, $5)";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount;
 
@@ -53,7 +52,7 @@ const checkIfUserAlreadyExists = async ({ email }) => {
 const getUser = async (email) => {
     try {
         values = [email];
-        const consulta = "SELECT * FROM usuarios WHERE email = $1";
+        const consulta = "SELECT * FROM users WHERE email = $1";
         const result = await pool.query(consulta, values);
         return result.rows;
     } catch (error) {
@@ -63,10 +62,10 @@ const getUser = async (email) => {
 
 const updateUser = async (user) => {
     try {
-        let { email, password, rol, lenguage } = user;
-        const values = [email, password, rol, lenguage];
+        let { password, rol } = user;
+        const values = [password, rol];
         const consulta =
-            "UPDATE users SET password = $2, rol = $3, lenguage = $4 WHERE email = $1";
+            "UPDATE users SET password = $2, rol = $3 WHERE email = $1";
         const result = await pool.query(consulta, values);
 
         const rowCount = result.rowCount;

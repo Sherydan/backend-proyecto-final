@@ -2,6 +2,7 @@ const {
     registerUser,
     getUser,
     checkIfUserAlreadyExists,
+    deleteUser,
 } = require("../models/usersModel");
 const { checkUserFields } = require("../helpers/validateNewUser");
 const jwt = require("jsonwebtoken");
@@ -46,8 +47,8 @@ const userData = async (req, res) => {
 
 const updateUserData = async (req, res) => {
     try {
-        const { email, password, rol, lenguage } = req.body;
-        const user = { email, password, rol, lenguage };
+        const { email, password, rol } = req.body;
+        const user = { email, password, rol };
         const result = await updateUser(user);
         res.status(200).send(result);
     } catch (error) {
