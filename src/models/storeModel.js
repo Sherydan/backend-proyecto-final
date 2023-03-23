@@ -2,9 +2,9 @@ const { pool } = require("../helpers/connectionDB");
 
 const createStore = async (store) => {
     try {
-        let { name, rut, industry, adress, email_adress } = store;
+        let { name, rut, industry, adress, email } = store;
 
-        const values = [name, rut, industry, adress, email_adress];
+        const values = [name, rut, industry, adress, email];
         const consulta =
             "INSERT INTO store VALUES (DEFAULT, $1, $2, $3, $4, $5)";
         const result = await pool.query(consulta, values);
@@ -39,10 +39,10 @@ const checkIfStoreAlreadyExists = async ({ name }) => {
     }
 };
 
-const getStore = async (name) => {
+const getStore = async (id) => {
     try {
-        values = [name];
-        const consulta = "SELECT * FROM store WHERE name = $1";
+        values = [id];
+        const consulta = "SELECT * FROM store WHERE id = $1";
         const result = await pool.query(consulta, values);
         return result.rows;
     } catch (error) {
@@ -52,9 +52,9 @@ const getStore = async (name) => {
 
 const updateStore = async (store) => {
     try {
-        let { name, adress } = store;
-        const values = [name, adress];
-        const consulta = "UPDATE store SET adress = $2 WHERE name = $1";
+        let { name, address } = store;
+        const values = [name, address];
+        const consulta = "UPDATE store SET address = $2 WHERE name = $1";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount;
 
@@ -71,10 +71,10 @@ const updateStore = async (store) => {
     }
 };
 
-const deleteStore = async (name) => {
+const deleteStore = async (id) => {
     try {
-        const values = [name];
-        const consulta = "DELETE FROM store WHERE name = $1";
+        const values = [id];
+        const consulta = "DELETE FROM store WHERE id = $1";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount;
 

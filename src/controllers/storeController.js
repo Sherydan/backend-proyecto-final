@@ -23,14 +23,16 @@ const insertStore = async (req, res) => {
                 res.status(200).send(result);
             }
         }
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const storeData = async (req, res) => {
     try {
-        const { name } = req;
-        const store = await getStore(name);
-        res.status(200).send(store[0]);
+        
+        const store = await getStore(req.params.id);
+        res.status(200).send(store);
     } catch (error) {
         console.log(error);
     }
@@ -38,8 +40,8 @@ const storeData = async (req, res) => {
 
 const updateStoreData = async (req, res) => {
     try {
-        const { name, adress } = req.body;
-        const store = { name, adress };
+        const { name, address } = req.body;
+        const store = { name, address };
         const result = await updateStore(store);
         res.status(200).send(result);
     } catch (error) {
@@ -49,8 +51,8 @@ const updateStoreData = async (req, res) => {
 
 const delStore = async (req, res) => {
     try {
-        const { name } = req.body;
-        const result = await deleteStore(name);
+        const { id } = req.body;
+        const result = await deleteStore(id);
         res.status(200).send(result);
     } catch (error) {
         console.log(error);
