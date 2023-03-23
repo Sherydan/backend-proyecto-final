@@ -1,11 +1,11 @@
 const { pool } = require("../helpers/connectionDB");
 
-const registerStore = async (store) => {
+const createStore = async (store) => {
     try {
-        let { name, rut, industry, adress } = store;
+        let { name, rut, industry, adress, email_adress } = store;
 
-        const values = [name, rut, industry, adress];
-        const consulta = "INSERT INTO store VALUES (DEFAULT, $1, $2, $3, $4)";
+        const values = [name, rut, industry, adress, email_adress ];
+        const consulta = "INSERT INTO store VALUES (DEFAULT, $1, $2, $3, $4, $5)";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount;
 
@@ -70,4 +70,4 @@ const updateStore = async (store) => {
     }
 };
 
-module.exports = { registerStore, checkIfStoreAlreadyExists, getStore, updateStore };
+module.exports = { createStore, checkIfStoreAlreadyExists, getStore, updateStore };

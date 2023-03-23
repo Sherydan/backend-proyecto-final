@@ -7,7 +7,6 @@ const { checkUserFields } = require("../helpers/validateNewUser");
 const jwt = require("jsonwebtoken");
 
 const insertUser = async (req, res) => {
-    
     try {
         const { email, password, rol, lenguage } = req.body;
         const user = { email, password, rol, lenguage };
