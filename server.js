@@ -2,15 +2,15 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-app.use(express.json());
+// app.use(express.json());
 app.use(cors());
 
+const bodyParser = require("body-parser")
 
-// listen for request
-// check if port is available
-// if not, use 3000
-// const port = process.env.PORT || 3000;
-// app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.use(bodyParser.json())
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 // // ping db
 // const { Pool } = require("pg");

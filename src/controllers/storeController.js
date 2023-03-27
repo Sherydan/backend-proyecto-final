@@ -20,7 +20,7 @@ const insertStore = async (req, res) => {
                 res.status(500).send("Please fill all fields");
             } else {
                 const result = await createStore(store);
-                res.status(200).send(result);
+                res.status(201).send(result);
             }
         }
     } catch (error) {
@@ -30,7 +30,6 @@ const insertStore = async (req, res) => {
 
 const storeData = async (req, res) => {
     try {
-        
         const store = await getStore(req.params.id);
         res.status(200).send(store);
     } catch (error) {
@@ -50,6 +49,7 @@ const updateStoreData = async (req, res) => {
 };
 
 const delStore = async (req, res) => {
+
     try {
         const { id } = req.body;
         const result = await deleteStore(id);

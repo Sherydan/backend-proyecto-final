@@ -8,6 +8,7 @@ const { isLogin } = require("../middlewares/isLogin");
 
 router.post("/store",reportRequest, insertStore)
 router.get("/store/:id", reportRequest, storeData)
+// put debe llevar id
 router.put("/store", reportRequest, updateStoreData)
 router.delete("/store", reportRequest, delStore)
 

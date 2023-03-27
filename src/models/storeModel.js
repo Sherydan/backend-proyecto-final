@@ -12,7 +12,7 @@ const createStore = async (store) => {
 
         if (!rowCount) {
             throw {
-                code: 404,
+                code: 422,
                 message: "Cant create store",
             };
         }
