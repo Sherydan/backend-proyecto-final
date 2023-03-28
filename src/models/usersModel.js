@@ -8,6 +8,7 @@ const registerUser = async (user) => {
         const encriptedPassword = bcrypt.hashSync(password);
         password = encriptedPassword;
         const values = [
+            store_id,
             email,
             encriptedPassword,
             rol,
@@ -15,7 +16,7 @@ const registerUser = async (user) => {
             last_name,
         ];
         const consulta =
-            "INSERT INTO users VALUES (DEFAULT, $1, $2, $3, $4, $5)";
+            "INSERT INTO users VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount;
 
