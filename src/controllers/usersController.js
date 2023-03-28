@@ -2,12 +2,12 @@ const {
     registerUser,
     getUser,
     checkIfUserAlreadyExists,
+    deleteUser,
 } = require("../models/usersModel");
 const { checkUserFields } = require("../helpers/validateNewUser");
 const jwt = require("jsonwebtoken");
 
 const insertUser = async (req, res) => {
-    
     try {
         const { email, password, rol, lenguage } = req.body;
         const user = { email, password, rol, lenguage };
@@ -45,4 +45,29 @@ const userData = async (req, res) => {
     }
 };
 
-module.exports = { insertUser, userData };
+const updateUserData = async (req, res) => {
+    try {
+        const { email, password, rol } = req.body;
+        const user = { email, password, rol };
+        const result = await updateUser(user);
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+
+    }
+};
+
+const delUser = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const result = await deleteUser(email);
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
+
+module.exports = { insertUser, userData, updateUserData, delUser };
