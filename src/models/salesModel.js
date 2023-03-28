@@ -3,6 +3,7 @@ const { pool } = require("../helpers/connectionDB");
 // add sales receives an array of sales
 // needs to insert each sale into the database
 const addSales = async (sales) => {
+    let result = null;
     try {
         // for each sale in the array
         for (let sale of sales) {
@@ -14,7 +15,7 @@ const addSales = async (sales) => {
             const consulta =
                 "INSERT INTO product_sales VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7)";
             // execute the query
-            const result = await pool.query(consulta, values);
+            result = await pool.query(consulta, values);
             // get the row count
             const rowCount = result.rowCount;
             // if the row count is 0, throw an error
@@ -26,6 +27,7 @@ const addSales = async (sales) => {
             }
         }
         // return the result
+        console.log("log result", result.rows);
         return result.rows;
     } catch (error) {
         console.log(error);
