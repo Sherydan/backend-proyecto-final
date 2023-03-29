@@ -4,19 +4,19 @@ const e = require("express");
 
 const registerUser = async (user) => {
     try {
-        let { email, password, rol, first_name, last_name  } = user;
+        let { storeId, email, password, role, first_name, last_name } = user;
         const encriptedPassword = bcrypt.hashSync(password);
         password = encriptedPassword;
         const values = [
-            store_id,
+            storeId,
             email,
             encriptedPassword,
-            rol,
+            role,
             first_name,
             last_name,
         ];
         const consulta =
-            "INSERT INTO users VALUES (DEFAULT, $1, $2, $3, $4, $5, $6)";
+            "INSERT INTO users (store_id, email, password, role, first_name, last_name) VALUES ($1, $2, $3, $4, $5, $6)";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount;
 

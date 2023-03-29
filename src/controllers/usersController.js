@@ -9,8 +9,8 @@ const jwt = require("jsonwebtoken");
 
 const insertUser = async (req, res) => {
     try {
-        const { store_id, email, password, rol, first_name, last_name } = req.body;
-        const user = { store_id, email, password, rol, first_name, last_name };
+        const { storeId, email, password, role, first_name, last_name } = req.body;
+        const user = { storeId, email, password, role, first_name, last_name };
         const userExists = await checkIfUserAlreadyExists(user);
         if (userExists) {
             res.status(404).send("User already exists");

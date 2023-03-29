@@ -1,6 +1,6 @@
 
-const checkUserFields = ({email, password, rol, lenguage}) => {
-    if (!email || !password || !rol || !lenguage) {
+const checkUserFields = ({email, password, role, first_name, last_name}) => {
+    if (!email || !password || !role || !first_name || !last_name) {
         return true
     } else {
         return false
