@@ -1,6 +1,7 @@
 const {
     registerUser,
-    getUser,
+    getTeam,
+    getUserProfile,
     checkIfUserAlreadyExists,
     checkIfUserIsAdmin,
     deleteUser,
@@ -39,13 +40,12 @@ const insertUser = async (req, res) => {
 
 };
 
-const userData = async (req, res) => {
+const teamData = async (req, res) => {
     try {
         const storeId = req.decodedToken.store.id;
-        const { email } = req;
-        const user = await getUser(email);
-        console.log(user);
-        res.status(200).send(user[0]);
+        const team = await getTeam(storeId);
+        console.log(team);
+        res.status(200).send(team);
     } catch (error) {
         console.log(error);
         res.status(500).send(error);
@@ -77,4 +77,4 @@ const delUser = async (req, res) => {
 
 
 
-module.exports = { insertUser, userData, updateUserData, delUser };
+module.exports = { insertUser, teamData, updateUserData, delUser };

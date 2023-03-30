@@ -66,11 +66,21 @@ const checkIfUserIsAdmin = async ({ id }) => {
     }
 };
 
-const getUser = async (email) => {
+const getTeam = async (storeId) => {
     try {
-        values = [email];
-        const consulta = "SELECT * FROM users WHERE email = $1";
-        const result = await pool.query(consulta, values);
+        values = [storeId];
+        const query = "SELECT * FROM users WHERE store_id = $1";
+        const result = await pool.query(query, values);
+        return result.rows;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const getUserProfile = async (id) => {
+    try {
+        const values = [id];
+        const query = "SELECT * FROM users WHERE id = $1";
         return result.rows;
     } catch (error) {
         console.log(error);
@@ -121,4 +131,4 @@ const deleteUser = async (email) => {
 };
 
 
-module.exports = { registerUser, checkIfUserAlreadyExists, checkIfUserIsAdmin, getUser, updateUser, deleteUser };
+module.exports = { registerUser, checkIfUserAlreadyExists, checkIfUserIsAdmin, getTeam, getUserProfile, updateUser, deleteUser };
