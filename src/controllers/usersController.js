@@ -73,8 +73,9 @@ const updateUserData = async (req, res) => {
 
 const delUser = async (req, res) => {
     try {
-        const { email } = req.params;
-        const result = await deleteUser(email);
+        const { email } = req.query;
+        const storeId = req.decodedToken.store.id;
+        const result = await deleteUser(email, storeId);
         res.status(200).send(result);
     } catch (error) {
         console.log(error);

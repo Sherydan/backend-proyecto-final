@@ -111,10 +111,10 @@ const updateUser = async (user) => {
     }
 };
 
-const deleteUser = async (email) => {
+const deleteUser = async (email, storeId) => {
     try {
-        const values = [email];
-        const query = "DELETE FROM users WHERE email = $1";
+        const values = [email, storeId];
+        const query = "DELETE FROM users WHERE email = $1 AND store_id = $2";
         const result = await pool.query(query, values);
         const rowCount = result.rowCount;
 
