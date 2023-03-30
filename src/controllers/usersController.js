@@ -2,6 +2,7 @@ const {
     registerUser,
     getUser,
     checkIfUserAlreadyExists,
+    checkIfUserIsAdmin,
     deleteUser,
 } = require("../models/usersModel");
 const { checkUserFields } = require("../helpers/validateNewUser");
@@ -9,9 +10,16 @@ const jwt = require("jsonwebtoken");
 
 const insertUser = async (req, res) => {
     try {
-        const { storeId, email, password, role, first_name, last_name } = req.body;
+        const storeId = req.decodedToken.store.id;
+        const adminId = req.decodedToken.user.id;
+        const role = "user";
+        const { email, password, first_name, last_name } = req.body;
         const user = { storeId, email, password, role, first_name, last_name };
         const userExists = await checkIfUserAlreadyExists(user);
+        const userIsAdmin = await checkIfUserIsAdmin(adminId);
+        if (userIsAdmin) {
+            return res.status(401).send("You are not authorized");
+        }
         if (userExists) {
             res.status(404).send("User already exists");
         } else {
@@ -33,8 +41,7 @@ const insertUser = async (req, res) => {
 
 const userData = async (req, res) => {
     try {
-        // const Authorization = req.header("Authorization");
-        // const token = Authorization.split("Bearer ")[1];
+        const storeId = req.decodedToken.store.id;
         const { email } = req;
         const user = await getUser(email);
         console.log(user);

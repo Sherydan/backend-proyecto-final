@@ -50,6 +50,22 @@ const checkIfUserAlreadyExists = async ({ email }) => {
     }
 };
 
+const checkIfUserIsAdmin = async ({ id }) => {
+    try {
+        const query = "SELECT * FROM users WHERE id = $1 AND role = 'admin'";
+        const values = [id];
+        const result = await pool.query(query, values);
+
+        if (result.rowCount >= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const getUser = async (email) => {
     try {
         values = [email];
@@ -105,4 +121,4 @@ const deleteUser = async (email) => {
 };
 
 
-module.exports = { registerUser, checkIfUserAlreadyExists, getUser, updateUser, deleteUser };
+module.exports = { registerUser, checkIfUserAlreadyExists, checkIfUserIsAdmin, getUser, updateUser, deleteUser };
