@@ -81,6 +81,7 @@ const getUserProfile = async (id) => {
     try {
         const values = [id];
         const query = "SELECT * FROM users WHERE id = $1";
+        const result = await pool.query(query, values)
         return result.rows;
     } catch (error) {
         console.log(error);
@@ -113,8 +114,8 @@ const updateUser = async (user) => {
 const deleteUser = async (email) => {
     try {
         const values = [email];
-        const consulta = "DELETE FROM users WHERE email = $1";
-        const result = await pool.query(consulta, values);
+        const query = "DELETE FROM users WHERE email = $1";
+        const result = await pool.query(query, values);
         const rowCount = result.rowCount;
 
         if (!rowCount) {

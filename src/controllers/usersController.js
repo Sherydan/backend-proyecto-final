@@ -35,9 +35,16 @@ const insertUser = async (req, res) => {
         console.log(error);
         res.status(500).send(error);
     }
+};
 
-
-
+const profileData = async (req, res) => {
+    try {
+        const userId = req.decodedToken.user.id;
+        const profile = await getUserProfile(userId);
+        res.status(200).send(profile);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const teamData = async (req, res) => {
@@ -66,7 +73,7 @@ const updateUserData = async (req, res) => {
 
 const delUser = async (req, res) => {
     try {
-        const { email } = req.body;
+        const { email } = req.params;
         const result = await deleteUser(email);
         res.status(200).send(result);
     } catch (error) {
@@ -77,4 +84,4 @@ const delUser = async (req, res) => {
 
 
 
-module.exports = { insertUser, teamData, updateUserData, delUser };
+module.exports = { insertUser, teamData, profileData, updateUserData, delUser };
