@@ -8,7 +8,8 @@ const { checkUserFields } = require("../helpers/validateNewUser");
 
 const addUserAndStore = async (req, res) => {
     try {
-        const { email, password, role, first_name, last_name, name, rut, industry, address } = req.body;
+        const role = 'admin'
+        const { email, password, first_name, last_name, name, rut, industry, address } = req.body;
         const user = { email, password, role, first_name, last_name };
         const store = { name, rut, industry, address };
         const userExists = await checkIfUserAlreadyExists(user);

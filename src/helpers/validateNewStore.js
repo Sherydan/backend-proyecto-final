@@ -1,12 +1,12 @@
 const checkStoreFields = (store) => {
-    const { name, rut, email, adress, industry } = store;
+    const { name, rut, email, address, industry } = store;
     // all fields are required
 
     if (
         !name ||
         !rut ||
         !email ||
-        !adress ||
+        !address ||
         !industry
     ) {
         return true;
