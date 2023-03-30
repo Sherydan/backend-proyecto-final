@@ -22,11 +22,20 @@ const registerUserAndStore = async (user, store) => {
             address,
         ];
         const userQuery =
-            "INSERT INTO users (email, password, role, first_name, last_name) VALUES ($1, $2, $3, $4, $5)";
+            "INSERT INTO users (email, password, role, first_name, last_name, store_id) VALUES ($1, $2, $3, $4, $5, $6)";
         const storeQuery =
-            "INSERT INTO store (name, rut, industry, address) VALUES ($1, $2, $3, $4)";
-        const userResult = await pool.query(userQuery, userValues);
+            "INSERT INTO store (name, rut, industry, address) VALUES ($1, $2, $3, $4) RETURNING id";
         const storeResult = await pool.query(storeQuery, storeValues);
+        const storeId = storeResult.rows[0].id;
+        const userValuesWithStoreId = [
+            email,
+            encriptedPassword,
+            role,
+            first_name,
+            last_name,
+            storeId,
+        ];
+        const userResult = await pool.query(userQuery, userValuesWithStoreId)
         const userRowCount = userResult.rowCount;
         const storeRowCount = storeResult.rowCount;
     
@@ -36,7 +45,6 @@ const registerUserAndStore = async (user, store) => {
                 message: "Cant create user",
             };
         }
-    
         return userResult.rows;
     }
     catch (error) {
