@@ -9,9 +9,9 @@ const { checkUserFields } = require("../helpers/validateNewUser");
 const addUserAndStore = async (req, res) => {
     try {
         const role = 'admin'
-        const { email, password, first_name, last_name, name, rut, industry, address } = req.body;
+        const { email, password, first_name, last_name, store_name, rut, industry, address, store_email } = req.body;
         const user = { email, password, role, first_name, last_name };
-        const store = { name, rut, industry, address };
+        const store = { store_name, rut, industry, address, store_email };
         const userExists = await checkIfUserAlreadyExists(user);
         const storeExists = await checkIfStoreAlreadyExists(store);
         if (userExists) {
@@ -20,6 +20,7 @@ const addUserAndStore = async (req, res) => {
             res.status(404).send("Store already exists");
         } else {
             if (checkUserFields(user)) {
+                console.log(checkUserFields(user));
                 res.status(500).send("Please fill all fields");
             } else {
                 const result = await registerUserAndStore(user, store);

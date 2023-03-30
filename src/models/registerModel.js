@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const registerUserAndStore = async (user, store) => {
     try {
         let { email, password, role, first_name, last_name } = user;
-        let { name, rut, industry, address } = store;
+        let { store_name, rut, industry, address, store_email } = store;
         const encriptedPassword = bcrypt.hashSync(password);
         password = encriptedPassword;
         const userValues = [
@@ -16,15 +16,16 @@ const registerUserAndStore = async (user, store) => {
             last_name,
         ];
         const storeValues = [
-            name,
+            store_name,
             rut,
             industry,
             address,
+            store_email
         ];
         const userQuery =
             "INSERT INTO users (email, password, role, first_name, last_name, store_id) VALUES ($1, $2, $3, $4, $5, $6)";
         const storeQuery =
-            "INSERT INTO store (name, rut, industry, address) VALUES ($1, $2, $3, $4) RETURNING id";
+            "INSERT INTO store (name, rut, industry, address, email_adress) VALUES ($1, $2, $3, $4, $5) RETURNING id";
         const storeResult = await pool.query(storeQuery, storeValues);
         const storeId = storeResult.rows[0].id;
         const userValuesWithStoreId = [
