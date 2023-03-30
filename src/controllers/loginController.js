@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {verifyCredentials} = require("../models/loginModel")
+const {getStore} = require("../models/storeModel")
 
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -11,13 +12,18 @@ const userLogin = async (req, res) => {
     try {
         const user = await verifyCredentials(email)
 
-        //check if user is not a empty arra
+        //check if user is not a empty array
         if (user[0]){
             const {password: encryptedPassword} = user[0]
             const isPasswordCorrect = bcrypt.compareSync(password, encryptedPassword)
 
             if (isPasswordCorrect) {
-                const token = jwt.sign({email}, JWT_SECRET)
+                const store = await getStore(user[0].storeId)
+                const tokenPayload = {
+                    user: user[0],
+                    store: store[0]
+                };
+                const token = jwt.sign(tokenPayload, JWT_SECRET)
                 res.status(200).send(token)
             } else {
                 res.status(500).send("Invalid user or password")
