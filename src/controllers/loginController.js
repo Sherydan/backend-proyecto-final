@@ -6,8 +6,8 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 const userLogin = async (req, res) => {
     const {email, password} = req.body
-    email.toLowerCase()
-    password.toLowerCase()
+    // email.toLowerCase()
+    // password.toLowerCase()
     try {
         const user = await verifyCredentials(email)
 

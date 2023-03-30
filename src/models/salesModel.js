@@ -32,6 +32,19 @@ const addSales = async (sales) => {
     } catch (error) {
         console.log(error);
     }
+
+    
+
 };
 
-module.exports = { addSales };
+const getSales = async () => {
+    try {
+        const consulta = "SELECT * FROM product_sales";
+        const result = await pool.query(consulta);
+        return result.rows;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+module.exports = { addSales, getSales };
