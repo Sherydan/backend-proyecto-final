@@ -15,8 +15,8 @@ const insertUser = async (req, res) => {
         const adminId = req.decodedToken.user.id;
         const role = "user";
         const { email, password, first_name, last_name } = req.body;
-        const user = { storeId, email, password, role, first_name, last_name };
-        const userExists = await checkIfUserAlreadyExists(user);
+        const newUser = { storeId, email, password, role, first_name, last_name };
+        const userExists = await checkIfUserAlreadyExists(newUser);
         const userIsAdmin = await checkIfUserIsAdmin(adminId);
         if (userIsAdmin) {
             return res.status(401).send("You are not authorized");
@@ -24,10 +24,10 @@ const insertUser = async (req, res) => {
         if (userExists) {
             res.status(404).send("User already exists");
         } else {
-            if (checkUserFields(user)) {
+            if (checkUserFields(newUser)) {
                 res.status(500).send("Please fill all fields");
             } else {
-                const result = await registerUser(user);
+                const result = await registerUser(newUser);
                 res.status(200).send(result);
             }
         }
