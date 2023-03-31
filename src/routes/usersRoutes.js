@@ -5,17 +5,17 @@ const {reportRequest} = require("../middlewares/logger")
 
 
 
-const {insertUser, teamData, profileData,updateUserData, delUser } = require("../controllers/usersController");
+const {insertUser, teamData, profileData, updateUserData, delUser } = require("../controllers/usersController");
 const authMiddleware = require("../middlewares/authMiddleware");
 const isAdmin = require("../middlewares/isAdmin");
 
 
 router.use(bodyParser.json());
 router.post("/user",reportRequest,authMiddleware, isAdmin, insertUser)
-// router.get("/user", reportRequest, authMiddleware, teamData)
+router.get("/user", reportRequest, authMiddleware, teamData)
 router.delete("/user", reportRequest,authMiddleware, isAdmin, delUser)
 
-router.get("/user/:id", reportRequest,authMiddleware, profileData)
+// router.get("/user/:id", reportRequest,authMiddleware, profileData)
 router.put("/user/:id", reportRequest,authMiddleware, updateUserData)
 
 module.exports = router
