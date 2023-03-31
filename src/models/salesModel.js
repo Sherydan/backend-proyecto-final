@@ -6,6 +6,7 @@ const addSales = async (sales) => {
     let result = null;
     try {
         // for each sale in the array
+        console.log("sales en model", sales);
         for (let sale of sales) {
             // destructure the sale
             let { date, id, product_id, product_description, store_id, total_sold, unit_price, units_sold } = sale;
