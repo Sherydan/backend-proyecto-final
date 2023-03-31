@@ -5,7 +5,6 @@ const {
     checkIfUserAlreadyExists,
     checkIfUserIsAdmin,
     deleteUser,
-    updateUser
 } = require("../models/usersModel");
 const { checkUserFields } = require("../helpers/validateNewUser");
 const jwt = require("jsonwebtoken");
@@ -36,19 +35,9 @@ const insertUser = async (req, res) => {
         console.log(error);
         res.status(500).send(error);
     }
-};
 
-const profileData = async (req, res) => {
-    try {
-        const userId = parseInt(req.params.id);
-        if (req.decodedToken.user.id !== userId) {
-            return res.status(401).send("You are not authorized");
-        }
-        const profile = await getUserProfile(userId);
-        res.status(200).send(profile);
-    } catch (error) {
-        console.log(error);
-    }
+
+
 };
 
 const teamData = async (req, res) => {
@@ -65,13 +54,8 @@ const teamData = async (req, res) => {
 
 const updateUserData = async (req, res) => {
     try {
-        const userId = parseInt(req.params.id);
-
-        if (req.decodedToken.user.id !== userId) {
-            return res.status(401).send("You are not authorized");
-        }
-        const { email, password, first_name, last_name } = req.body;
-        const user = { userId, email, password, first_name, last_name };
+        const { email, password, rol } = req.body;
+        const user = { email, password, rol };
         const result = await updateUser(user);
         res.status(200).send(result);
     } catch (error) {
@@ -82,9 +66,8 @@ const updateUserData = async (req, res) => {
 
 const delUser = async (req, res) => {
     try {
-        const { email } = req.query;
-        const storeId = req.decodedToken.store.id;
-        const result = await deleteUser(email, storeId);
+        const { email } = req.body;
+        const result = await deleteUser(email);
         res.status(200).send(result);
     } catch (error) {
         console.log(error);
@@ -94,4 +77,4 @@ const delUser = async (req, res) => {
 
 
 
-module.exports = { insertUser, teamData, profileData, updateUserData, delUser };
+module.exports = { insertUser, teamData, updateUserData, delUser };
