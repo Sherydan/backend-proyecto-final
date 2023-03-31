@@ -11,13 +11,16 @@ const { checkStoreFields } = require("../helpers/validateNewStore");
 const insertStore = async (req, res) => {
     try {
         
-        const { name, rut, email, adress, industry } = req.body;
-        const store = { name, rut, email, adress, industry };
+        const { name, rut, email, address, industry } = req.body;
+        const store = { name, rut, email, address, industry };
+
+        console.log("log de store en controller", store);
         const storeExists = await checkIfStoreAlreadyExists(store);
         if (storeExists) {
             res.status(404).send("Store already exists");
         } else {
             if (checkStoreFields(store)) {
+                
                 res.status(500).send("Please fill all fields");
             } else {
                 const result = await createStore(store);
