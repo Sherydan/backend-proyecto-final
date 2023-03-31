@@ -12,7 +12,7 @@ const isAdmin = require("../middlewares/isAdmin");
 
 router.use(bodyParser.json());
 router.post("/user",reportRequest,authMiddleware, isAdmin, insertUser)
-router.get("/user", reportRequest, authMiddleware, teamData)
+// router.get("/user", reportRequest, authMiddleware, teamData)
 router.delete("/user", reportRequest,authMiddleware, isAdmin, delUser)
 
 router.get("/user/:id", reportRequest,authMiddleware, profileData)
