@@ -40,10 +40,7 @@ const insertUser = async (req, res) => {
 
 const profileData = async (req, res) => {
     try {
-        const userId = parseInt(req.params.id);
-        if (req.decodedToken.user.id !== userId) {
-            return res.status(401).send("You are not authorized");
-        }
+        const userId = req.decodedToken.user.id;
         const profile = await getUserProfile(userId);
         res.status(200).send(profile);
     } catch (error) {
@@ -65,11 +62,7 @@ const teamData = async (req, res) => {
 
 const updateUserData = async (req, res) => {
     try {
-        const userId = parseInt(req.params.id);
-
-        if (req.decodedToken.user.id !== userId) {
-            return res.status(401).send("You are not authorized");
-        }
+        const userId = req.decodedToken.user.id;
         const { email, password, first_name, last_name } = req.body;
         const user = { userId, email, password, first_name, last_name };
         const result = await updateUser(user);
