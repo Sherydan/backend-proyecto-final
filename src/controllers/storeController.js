@@ -10,6 +10,7 @@ const { checkStoreFields } = require("../helpers/validateNewStore");
 
 const insertStore = async (req, res) => {
     try {
+        
         const { name, rut, email, adress, industry } = req.body;
         const store = { name, rut, email, adress, industry };
         const storeExists = await checkIfStoreAlreadyExists(store);
@@ -39,8 +40,9 @@ const storeData = async (req, res) => {
 
 const updateStoreData = async (req, res) => {
     try {
-        const { name, address } = req.body;
-        const store = { name, address };
+        const {id} = req.params;
+        const { address } = req.body;
+        const store = { id, address };
         const result = await updateStore(store);
         res.status(200).send(result);
     } catch (error) {
@@ -51,7 +53,7 @@ const updateStoreData = async (req, res) => {
 const delStore = async (req, res) => {
 
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const result = await deleteStore(id);
         res.status(200).send(result);
     } catch (error) {

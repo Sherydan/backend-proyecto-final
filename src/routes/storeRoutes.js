@@ -7,10 +7,10 @@ const { insertStore, storeData, updateStoreData, delStore } = require("../contro
 const { isLogin } = require("../middlewares/isLogin");
 
 router.post("/store",reportRequest, insertStore)
-router.get("/store/:id", reportRequest, storeData)
+router.get("/store/:id", reportRequest, isLogin, storeData)
 // put debe llevar id
-router.put("/store", reportRequest, updateStoreData)
-router.delete("/store", reportRequest, delStore)
+router.put("/store/:id", reportRequest, isLogin, updateStoreData)
+router.delete("/store/:id", reportRequest, isLogin, delStore)
 
 
 

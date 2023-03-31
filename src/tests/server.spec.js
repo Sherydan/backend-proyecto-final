@@ -3,6 +3,16 @@ const server = require("../../app");
 
 const {faker} = require("@faker-js/faker");
 
+// create a function that login and returns a token
+const login = async () => {
+    const response = await request(server).post("/login").send({
+        email: "aaaadmin@admin.com",
+        password: "Damagedonelpq09!",});
+    return response.body;
+};
+
+const jwt = login();
+
 describe("Store CRUD operations", () => {
     const testStore = {
         name: faker.finance.accountName(),
@@ -17,57 +27,61 @@ describe("Store CRUD operations", () => {
     describe("POST /store", () => {
         it("POST /store should add a new store and return status code 200", async () => {
             // hacer que rut sea dinamico ya que es unico
-            console.log("log de server", server);
-            // const response = await request(server).put("/store/{id}").send({
+            
+            
             const response = await request(server).post("/store").send(testStore);
-            console.log("alo", response);
+            
             expect(response.status).toBe(201);
         });
 
-        // it("POST /store should return a 404 status code if store already exists", async () => {
-        //     const response = await request(server).post("/store").send({
-        //         name: "test store",
-        //         rut: "17550470-21",
-        //         email: "test@store.com",
-        //         adress: "test store",
-        //         industry: "food",
-        //     });
+        it("POST /store should return a 404 status code if store already exists", async () => {
+            const response = await request(server).post("/store").send({
+                name: "test store",
+                rut: "17550",
+                email: "testsss@store.com",
+                adress: "test sssstore",
+                industry: "aaa",
+            });
 
-        //     expect(response.status).toBe(404);
-        // });
-        // it("POST /store should return a 500 status code if fields are empty", async () => {
-        //     const response = await request(server).post("/store").send({
-        //         name: "",
-        //         rut: "",
-        //         email: "",
-        //         adress: "",
-        //         industry: "",
-        //     });
-        //     expect(response.status).toBe(500);
-        // });
+            expect(response.status).toBe(404);
+        });
+        it("POST /store should return a 500 status code if fields are empty", async () => {
+            const response = await request(server).post("/store").send({
+                name: "",
+                rut: "",
+                email: "",
+                adress: "",
+                industry: "",
+            });
+            expect(response.status).toBe(500);
+        });
     });
 
     // describe("GET /store", () => {
     //     it("GET /store should return status code 200", async () => {
-    //         const response = await request(server).get("/store/5").send({
+            
+    //         // send id and auth token
+    //         // send auth token in header
+    //         const response = await (await request(server).get("/store/5")).set("Authorization", jwt).send({
     //             id: "5",
     //         });
     //         expect(response.status).toBe(200);
     //     });
 
     //     it("GET /store should return an array of stores", async () => {
-    //         const response = await request(server).get("/store/5").send({
+    //         const response = await (await request(server).get("/store/5")).set("Authorization", jwt).send({
     //             id: "5",
     //         });
-    //         console.log("expect array", Array.isArray(response.body));
+            
     //         expect(response.body).toBeInstanceOf(Array);
     //     });
     // });
 
     // describe("PUT /store", () => {
+    //     const idParActualizar = 16;
     //     it("PUT /store should return status code 200", async () => {
     //         // dejar con id dinamico
-    //         const response = await request(server).put("/store").send({
+    //         const response = await request(server).put(`/store/${idParActualizar}`).set("Authorization", jwt).send({
     //             name: "test store",
     //             adress: "test store updated",
     //         });
@@ -77,9 +91,8 @@ describe("Store CRUD operations", () => {
 
     // describe("DELETE /store", () => {
     //     it("DELETE /store should return status code 200", async () => {
-    //         const response = await request(server).delete("/store").send({
-    //             id: "2",
-    //         });
+    //         const idToDelete = 9;
+    //         const response = await request(server).delete(`/store/${idToDelete}`).set("Authorization", jwt).send();
     //         expect(response.status).toBe(200);
     //     });
     // });

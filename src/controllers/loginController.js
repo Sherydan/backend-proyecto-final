@@ -9,6 +9,7 @@ const userLogin = async (req, res) => {
     const {email, password} = req.body
     // email.toLowerCase()
     // password.toLowerCase()
+    console.log(email, password);
     try {
         const user = await verifyCredentials(email)
         const store = await getStore(user[0].store_id)
