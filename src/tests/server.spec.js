@@ -26,11 +26,7 @@ describe("Store CRUD operations", () => {
     console.log("datos store", testStore);
     describe("POST /store", () => {
         it("POST /store should add a new store and return status code 200", async () => {
-            // hacer que rut sea dinamico ya que es unico
-            
-            
             const response = await request(server).post("/store").send(testStore);
-            
             expect(response.status).toBe(201);
         });
 

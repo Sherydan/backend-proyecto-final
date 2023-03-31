@@ -5,7 +5,9 @@ const cors = require("cors");
 
 // app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
-app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
+app.set("port", process.env.PORT || 4000);
+app.listen(app.get("port"), () => console.log(`Server running on port ${app.get("port")}`));
 
 module.exports = app;
