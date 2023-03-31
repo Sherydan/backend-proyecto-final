@@ -11,14 +11,14 @@ const userLogin = async (req, res) => {
     // password.toLowerCase()
     try {
         const user = await verifyCredentials(email)
-
+        const store = await getStore(user[0].store_id)
         //check if user is not a empty array
         if (user[0]){
             const {password: encryptedPassword} = user[0]
             const isPasswordCorrect = bcrypt.compareSync(password, encryptedPassword)
 
             if (isPasswordCorrect) {
-                const store = await getStore(user[0].storeId)
+                
                 const tokenPayload = {
                     user: user[0],
                     store: store[0]
