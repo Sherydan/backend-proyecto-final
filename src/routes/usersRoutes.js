@@ -15,7 +15,7 @@ router.post("/user",reportRequest,authMiddleware, isAdmin, insertUser)
 // router.get("/user", reportRequest, authMiddleware, teamData)
 router.delete("/user", reportRequest,authMiddleware, isAdmin, delUser)
 
-// router.get("/user/:id", reportRequest,authMiddleware, profileData)
+router.get("/user/:id", reportRequest,authMiddleware, profileData)
 router.put("/user/:id", reportRequest,authMiddleware, updateUserData)
 
 module.exports = router
