@@ -4,7 +4,6 @@ const {reportRequest} = require("../middlewares/logger")
 
 const { insertStore, storeData, updateStoreData, delStore } = require("../controllers/storeController");
 
-const { isLogin } = require("../middlewares/isLogin");
 
 router.post("/store",reportRequest, insertStore)
 router.get("/store/:id", reportRequest, isLogin, storeData)

@@ -14,7 +14,7 @@ const isAdmin = (req, res, next) => {
 
     const { user } = decodedToken;
 
-    if (!user.isAdmin) {
+    if (user.role !== 'admin') {
       return res.status(403).json({ message: 'User is not authorized to perform this action' });
     }
 

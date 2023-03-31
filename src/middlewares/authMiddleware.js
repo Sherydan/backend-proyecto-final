@@ -7,8 +7,8 @@ const authMiddleware = (req, res, next) => {
     }
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(decodedToken)
         req.decodedToken = decodedToken;
+
         next();
     } catch (error) {
         res.status(400).send("Invalid token");
