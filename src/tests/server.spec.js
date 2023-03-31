@@ -53,43 +53,43 @@ describe("Store CRUD operations", () => {
         });
     });
 
-    // describe("GET /store", () => {
-    //     it("GET /store should return status code 200", async () => {
+    describe("GET /store", () => {
+        it("GET /store should return status code 200", async () => {
             
-    //         // send id and auth token
-    //         // send auth token in header
-    //         const response = await (await request(server).get("/store/5")).set("Authorization", jwt).send({
-    //             id: "5",
-    //         });
-    //         expect(response.status).toBe(200);
-    //     });
+            // send id and auth token
+            // send auth token in header
+            const response = await (await request(server).get("/store/5")).set("Authorization", jwt).send({
+                id: "5",
+            });
+            expect(response.status).toBe(200);
+        });
 
-    //     it("GET /store should return an array of stores", async () => {
-    //         const response = await (await request(server).get("/store/5")).set("Authorization", jwt).send({
-    //             id: "5",
-    //         });
+        it("GET /store should return an array of stores", async () => {
+            const response = await (await request(server).get("/store/5")).set("Authorization", jwt).send({
+                id: "5",
+            });
             
-    //         expect(response.body).toBeInstanceOf(Array);
-    //     });
-    // });
+            expect(response.body).toBeInstanceOf(Array);
+        });
+    });
 
-    // describe("PUT /store", () => {
-    //     const idParActualizar = 16;
-    //     it("PUT /store should return status code 200", async () => {
-    //         // dejar con id dinamico
-    //         const response = await request(server).put(`/store/${idParActualizar}`).set("Authorization", jwt).send({
-    //             name: "test store",
-    //             adress: "test store updated",
-    //         });
-    //         expect(response.status).toBe(200);
-    //     });
-    // });
+    describe("PUT /store", () => {
+        const idParActualizar = 16;
+        it("PUT /store should return status code 200", async () => {
+            // dejar con id dinamico
+            const response = await request(server).put(`/store/${idParActualizar}`).set("Authorization", jwt).send({
+                name: "test store",
+                adress: "test store updated",
+            });
+            expect(response.status).toBe(200);
+        });
+    });
 
-    // describe("DELETE /store", () => {
-    //     it("DELETE /store should return status code 200", async () => {
-    //         const idToDelete = 9;
-    //         const response = await request(server).delete(`/store/${idToDelete}`).set("Authorization", jwt).send();
-    //         expect(response.status).toBe(200);
-    //     });
-    // });
+    describe("DELETE /store", () => {
+        it("DELETE /store should return status code 200", async () => {
+            const idToDelete = 9;
+            const response = await request(server).delete(`/store/${idToDelete}`).set("Authorization", jwt).send();
+            expect(response.status).toBe(200);
+        });
+    });
 });
