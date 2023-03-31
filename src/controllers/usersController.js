@@ -5,6 +5,7 @@ const {
     checkIfUserAlreadyExists,
     checkIfUserIsAdmin,
     deleteUser,
+    updateUser
 } = require("../models/usersModel");
 const { checkUserFields } = require("../helpers/validateNewUser");
 const jwt = require("jsonwebtoken");
@@ -39,7 +40,10 @@ const insertUser = async (req, res) => {
 
 const profileData = async (req, res) => {
     try {
-        const userId = req.decodedToken.user.id;
+        const userId = parseInt(req.params.id);
+        if (req.decodedToken.user.id !== userId) {
+            return res.status(401).send("You are not authorized");
+        }
         const profile = await getUserProfile(userId);
         res.status(200).send(profile);
     } catch (error) {
@@ -61,8 +65,13 @@ const teamData = async (req, res) => {
 
 const updateUserData = async (req, res) => {
     try {
-        const { email, password, rol } = req.body;
-        const user = { email, password, rol };
+        const userId = parseInt(req.params.id);
+
+        if (req.decodedToken.user.id !== userId) {
+            return res.status(401).send("You are not authorized");
+        }
+        const { email, password, first_name, last_name } = req.body;
+        const user = { userId, email, password, first_name, last_name };
         const result = await updateUser(user);
         res.status(200).send(result);
     } catch (error) {
