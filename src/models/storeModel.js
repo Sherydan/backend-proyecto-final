@@ -52,9 +52,9 @@ const getStore = async (id) => {
 
 const updateStore = async (store) => {
     try {
-        let { name, address } = store;
-        const values = [name, address];
-        const consulta = "UPDATE store SET address = $2 WHERE name = $1";
+        let { address, id } = store;
+        const values = [address, id];
+        const consulta = "UPDATE store SET address = $1 WHERE id = $2";
         const result = await pool.query(consulta, values);
         const rowCount = result.rowCount;
 
