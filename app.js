@@ -4,6 +4,7 @@ app.use('/', require('./src/routes/privateRoutes'))
 
 app.use('/', require('./src/routes/storeRoutes'))
 app.use('/', require('./src/routes/usersRoutes'))
+app.use('/', require('./src/routes/addSalesRoutes'))
 
 app.use('/', require('./src/routes/loginRoutes'))
 app.use('/', require('./src/routes/registerRoutes'))
