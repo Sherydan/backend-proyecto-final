@@ -12,7 +12,8 @@ const insertSales = async (req, res) => {
 
 const getSalesReport = async (req, res) => {
     try {
-        const result = await getSales();
+        const store = req.decodedToken.store;
+        const result = await getSales(store);
         res.status(200).send(result);
     } catch (error) {
         console.log(error);

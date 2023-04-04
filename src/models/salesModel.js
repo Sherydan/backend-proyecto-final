@@ -38,10 +38,12 @@ const addSales = async (sales) => {
 
 };
 
-const getSales = async () => {
+const getSales = async ( store ) => {
     try {
-        const consulta = "SELECT * FROM product_sales";
-        const result = await pool.query(consulta);
+        const { id } = store;
+        const values = [id];
+        const consulta = "SELECT * FROM product_sales WHERE store_id = $1";
+        const result = await pool.query(consulta, values);
         return result.rows;
     } catch (error) {
         console.log(error);
