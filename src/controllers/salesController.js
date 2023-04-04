@@ -2,6 +2,7 @@ const { addSales, getSales } = require("../models/salesModel");
 
 const insertSales = async (req, res) => {
     try {
+        req.body.forEach(sale => sale.store_id = req.decodedToken.store.id);
         const sales = req.body;
         const result = await addSales(sales);
         res.status(201).send(result);
