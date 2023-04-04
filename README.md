@@ -1,4 +1,4 @@
-# backend-proyecto-final## Link Front:
+## Link Front:
 
 [FRONT](https://deploy-front-proyectofinaldfl-production.up.railway.app/)
 
@@ -15,3 +15,14 @@ Con tan solo ingresar un archivo ya podras acceder a graficos y los KPI mas impo
  - Añade a tu propio equipo de trabajo para que todos puedan acceder al mismo tiempo a los graficos y datos analizados sin necesidad de enviar archivos.
 ### Grafica tus ventas
  - Con solo ingresar tus datos en brutos podras graficar y destacar los datos mas importante de tus ventas.
+
+
+**Instalacion**
+ Para esto se requieren los siguientes pasos:
+ -   Clonar repositorio
+-   `git clone https://github.com/Sherydan/backend-proyecto-final`
+-   Instalar dependencias
+-   `npm install`
+-   Iniciar el proyecto
+-   `nodemon app.js`
+**
